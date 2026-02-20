@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/fancybox.css">
     <link rel="stylesheet" href="css/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/nouislider.min.css">
     <link rel="stylesheet" href="css/style.min.css">
     <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
     <title>Главная</title>
@@ -35,6 +36,12 @@
     <div class="wrapper" style="padding: 50px;">
         <a href="index.html" style="display: block; margin-bottom: 20px;">
             Главная
+        </a>
+        <a href="catalog.html" style="display: block; margin-bottom: 20px;">
+            Каталог
+        </a>
+        <a href="catalog-item.html" style="display: block; margin-bottom: 20px;">
+            Карточка товара
         </a>
         <a href="about.html" style="display: block; margin-bottom: 20px;">
             О компании
@@ -68,22 +75,16 @@
 
 
 
-        <button style="border: 2px solid #000;margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#quickOrder">
-            Быстрый заказ
+        <button data-modal="cartModal" style="border: 2px solid #000;margin-bottom: 20px;">
+            Ваша корзина
+        </button>
+        <button data-modal="orderModal" style="border: 2px solid #000;margin-bottom: 20px;">
+            Ваш заказ
+        </button>
+        <button data-modal="cityModal" style="border: 2px solid #000;margin-bottom: 20px;">
+            Выберите город
         </button>
 
-
-        <code>
-
-            @@include
-            ('components/page-blocks/_filter-slider.html',{ <br>
-            "start1":"0", <br>
-            "start2":"30000", <br>
-            "min":"1000", <br>
-            "max":"100000", <br>
-            })
-
-        </code>
     </div>
 
 
@@ -92,26 +93,306 @@
 
 
 
-    <div class="modal" id="Modal">
+
+    <!--  -->
+    <div class="modal" id="cityModal">
         <div class="modal__bg modal-bg _close-modal"></div>
         <div class="modal__dialog">
-            <div class="modal__top">
-                <div class="text32 medium-text">
-                    Title
-                </div>
-                <button class="close-btn _close-modal">
-                    <img src="img/close.svg" alt="">
-                </button>
+            <div class="h4">
+                Выберите город
             </div>
+
+            <div class="m-search _mt16">
+                <div class="fg fg-transparent">
+                    <input type="text" placeholder="Введите ваш город">
+                </div>
+                <img src="img/search.svg" alt="">
+            </div>
+
+            <div class="modal__cities">
+                <div class="city-item _selected">
+                    <div class="h6">Москва</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+                <div class="city-item">
+                    <div class="h6">Зеленоград</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+                <div class="city-item">
+                    <div class="h6">Московский</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+                <div class="city-item">
+                    <div class="h6">Щербинка</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+                <div class="city-item">
+                    <div class="h6">Троицк</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+                <div class="city-item">
+                    <div class="h6">Волоколамск</div>
+                    <div class="body-s gray-text">Москва и Московская область</div>
+                </div>
+            </div>
+
+            <button class="close-btn _close-modal">
+                <img src="img/close.svg" alt="">
+            </button>
         </div>
     </div>
 
-    <!--  -->
+    <div class="modal full-modal order-modal" id="orderModal">
+        <div class="modal__bg modal-bg _close-modal"></div>
+        <div class="modal__dialog">
+            <div class="h4">
+                Ваш заказ успешной оплачен
+            </div>
+            <div class="_mt24">
+                <div class="text">
+                    <p>Ожидайте отгрузку в транспортную компанию </p>
+                    <p>Информация об отслеживании заказа будет отправлена сразу после отгрузки на Ваш контактный номер телефона +7999 999 99 99</p>
+                </div>
+            </div>
+            <div class="_mt24">
+                <div class="order-modal__props">
+                    <div class="prop-item">
+                        <div class="prop-item__title">
+                            <div class="body-m gray-text">
+                                Статус заказа
+                            </div>
+                        </div>
+                        <div class="prop-item__desc">
+                            <div class="body-m">
+                                В обработке
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prop-item">
+                        <div class="prop-item__title">
+                            <div class="body-m gray-text">
+                                Номер заказа
+                            </div>
+                        </div>
+                        <div class="prop-item__desc">
+                            <div class="body-m">
+                                765 987
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prop-item">
+                        <div class="prop-item__title">
+                            <div class="body-m gray-text">
+                                Сумма
+                            </div>
+                        </div>
+                        <div class="prop-item__desc">
+                            <div class="body-m">
+                                77 100₽
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="_mt24">
+                <div class="order-modal__items">
+                    <div class="order-modal__item">
+                        <div class="body-s gray-text medium-text">Получатель</div>
+                        <div class="_mt8">
+                            <div class="h5">Иванов Иван Иванович</div>
+                        </div>
+                    </div>
+                    <div class="order-modal__item">
+                        <div class="body-s gray-text medium-text">Телефон</div>
+                        <div class="_mt8">
+                            <div class="h5">+7 999 999 99 99</div>
+                        </div>
+                    </div>
+                    <div class="order-modal__item _full">
+                        <div class="body-s gray-text medium-text">Доставка</div>
+                        <div class="_mt8">
+                            <div class="h5">Пункт выдачи СДЭК (г. Москва, ул. Советская, 99)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="_mt24">
+                <div class="order-info">
+                    <div class="h4">
+                        Ваш заказ
+                    </div>
+                    <div class="_mt8">
+                        <div class="body-s gray-text">
+                            2 товара:
+                        </div>
+                    </div>
+                    <div class="order-info__items">
+                        <div class="order-item">
+                            <div class="order-item__col">
+                                <div class="order-item__img">
+                                    <img src="img/product-img.webp" alt="">
+                                </div>
+                            </div>
+                            <div class="order-item__col2 _flex-between">
+                                <div class="order-item__text">
+                                    <div class="h6">
+                                        Авточехлы на сиденья Toyota Camry 2.0 Sport
+                                    </div>
+                                    <div class="body-s gray-text">
+                                        Модельные чехлы KIA Rio 4 X-Line 2017-2019 седан, хэтчбек шоколад экокожа
+                                    </div>
+                                </div>
+                                <div class="order-item__prices">
+                                    <span class="h5">25 700₽</span>
+                                    <span class="body-s underline-text2 green-text">28 700₽</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-item">
+                            <div class="order-item__col">
+                                <div class="order-item__img">
+                                    <img src="img/product-img.webp" alt="">
+                                </div>
+                            </div>
+                            <div class="order-item__col2 _flex-between">
+                                <div class="order-item__text">
+                                    <div class="h6">
+                                        Авточехлы на сиденья Toyota Camry 2.0 Sport
+                                    </div>
+                                    <div class="body-s gray-text">
+                                        Модельные чехлы KIA Rio 4 X-Line 2017-2019 седан, хэтчбек шоколад экокожа
+                                    </div>
+                                </div>
+                                <div class="order-item__prices">
+                                    <span class="h5">25 700₽</span>
+                                    <span class="body-s underline-text2 green-text">28 700₽</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <button class="close-btn _close-modal">
+                <img src="img/close.svg" alt="">
+            </button>
+        </div>
+    </div>
+
+    <div class="modal full-modal cart-modal" id="cartModal">
+        <div class="modal__bg modal-bg _close-modal"></div>
+        <div class="modal__dialog">
+            <div class="h4">
+                Ваша корзина
+            </div>
+            <div class="_mt8">
+                <div class="body-s gray-text">
+                    2 товара:
+                </div>
+            </div>
+            <div class="order-info__items">
+                <div class="cart-item">
+                    <div class="cart-item__col">
+                        <div class="cart-item__img">
+                            <img src="img/product-img.webp" alt="">
+                        </div>
+                    </div>
+                    <div class="cart-item__col2">
+                        <div class="cart-item__text">
+                            <div class="h6">
+                                Авточехлы на сиденья Toyota Camry 2.0 Sport
+                            </div>
+                            <div class="cart-item__desc body-s gray-text">
+                                Модельные чехлы KIA Rio 4 X-Line 2017-2019 седан, хэтчбек шоколад экокожа
+                            </div>
+                        </div>
+                        <div class="cart-item__action _flex-between">
+                            <div class='cartcalc'>
+                                <button class='ccalc-minus'>
+                                    <img src="img/minus.svg" alt="">
+                                </button>
+                                <input type='text' value='1'>
+                                <button class='ccalc-plus'>
+                                    <img src="img/plus.svg" alt="">
+                                </button>
+                            </div>
+
+                            <div class="cart-item__prices">
+                                <span class="h5">25 700₽</span>
+                                <span class="body-s underline-text2 green-text">28 700₽</span>
+                            </div>
+                            <button class="cart-item__delete">
+                                <img src="img/plus.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="cart-item__col">
+                        <div class="cart-item__img">
+                            <img src="img/product-img.webp" alt="">
+                        </div>
+                    </div>
+                    <div class="cart-item__col2">
+                        <div class="cart-item__text">
+                            <div class="h6">
+                                Авточехлы на сиденья Toyota Camry 2.0 Sport
+                            </div>
+                            <div class="cart-item__desc body-s gray-text">
+                                Модельные чехлы KIA Rio 4 X-Line 2017-2019 седан, хэтчбек шоколад экокожа
+                            </div>
+                        </div>
+                        <div class="cart-item__action _flex-between">
+                            <div class='cartcalc'>
+                                <button class='ccalc-minus'>
+                                    <img src="img/minus.svg" alt="">
+                                </button>
+                                <input type='text' value='1'>
+                                <button class='ccalc-plus'>
+                                    <img src="img/plus.svg" alt="">
+                                </button>
+                            </div>
+
+                            <div class="cart-item__prices">
+                                <span class="h5">25 700₽</span>
+                                <span class="body-s underline-text2 green-text">28 700₽</span>
+                            </div>
+                            <button class="cart-item__delete">
+                                <img src="img/plus.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cart-modal__bottom">
+                <div class="_mt24">
+                    <div class="order-info__sum h4">
+                        Сумма: 77 100₽
+                    </div>
+                </div>
+                <button class="order-info__btn m-btn m-btn-green">
+                    <span>Оплатить заказ</span>
+                </button>
+            </div>
+
+            <button class="close-btn _close-modal">
+                <img src="img/close.svg" alt="">
+            </button>
+        </div>
+    </div>
+
+
     <script src="js/jquery.min.js"></script>
     <script src="js/fancybox.umd.js"></script>
     <script src="js/jquery.maskedinput.min.js"></script>
     <script src="js/swiper-bundle.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
     <script src="js/main.min.js"></script>
 
 </body>
